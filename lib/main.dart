@@ -1,6 +1,7 @@
 import 'package:calculator_app/widgetsa/widgetsa_clss.dart';
 import 'package:flutter/material.dart';
 
+
 void main() {
   runApp(const _apps());
 }
@@ -18,40 +19,38 @@ class _apps extends StatelessWidget {
           ),
         ),
         body: SafeArea(
+          child: Column(
+mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.amber,
 
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    color: Colors.amber,
-                    height: 200,
+                ),
+              ),
+              Expanded(
+                flex: 7,
+                child: Container(
+                  color: Colors.blue,
 
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      getbody('ac','ce','%','/'),
+                      getbody('7','8','9','*'),
+                      getbody('4','5','6','-'),
+                      getbody('1','2','3','+'),
+                      getbody('00','0','.','='),
+
+                    ],
                   ),
                 ),
-                Expanded(
-                  flex: 7,
-                  child: Container(
-                    color: Colors.blue,
-                    height: 200,
-                    child:Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-
-                      widgets_as(),
-                      widgets_as()
-                      ,
-                      widgets_as()
-                      , widgets_as()
-                    ]),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-
+      ),
     );
   }
 }
