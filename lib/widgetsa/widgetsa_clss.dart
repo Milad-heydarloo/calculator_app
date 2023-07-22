@@ -7,7 +7,9 @@ Widget getbody(String t1, String t2, String t3, String t4) {
     children: [
       TextButton(
         style: TextButton.styleFrom(
-            shape: CircleBorder(side: BorderSide(width: 1))),
+          backgroundColor: Colors.amber,
+
+            shape: CircleBorder(side: BorderSide(width: 2,color: Colors.white))),
         onPressed: () {},
         child: Padding(
           padding: EdgeInsets.all(5),
@@ -19,8 +21,10 @@ Widget getbody(String t1, String t2, String t3, String t4) {
         ),
       ),
       TextButton(
+
         style: TextButton.styleFrom(
-            shape: CircleBorder(side: BorderSide(width: 1))),
+          backgroundColor: Colors.amber,
+            shape: CircleBorder(side: BorderSide(width: 2,color: Colors.white))),
         onPressed: () {},
         child: Padding(
           padding: EdgeInsets.all(5),
@@ -33,9 +37,12 @@ Widget getbody(String t1, String t2, String t3, String t4) {
       ),
       TextButton(
         style: TextButton.styleFrom(
+
+          backgroundColor: Colors.amber,
           shape: CircleBorder(
             side: BorderSide(
-              width: 1,
+              width: 2,
+              color: Colors.white
             ),
           ),
         ),
@@ -53,8 +60,9 @@ Widget getbody(String t1, String t2, String t3, String t4) {
       ),
       TextButton(
         style: TextButton.styleFrom(
+          backgroundColor: Colors.amber,
           shape: CircleBorder(
-            side: BorderSide(width: 1),
+            side: BorderSide(width: 2,color: Colors.white),
           ),
         ),
         onPressed: () {},
