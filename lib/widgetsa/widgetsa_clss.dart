@@ -1,13 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+Color get_body_but(String txt) {
+  //inja age text shabih on list bashe
+  //amber bar migardeh nabashe abi
+  if (is_operatour(txt)) {
+    return Colors.amber;
+  }
+  return Colors.blue;
+}
+//in method ye vorodi migireh az jaii ke seda mishe
+//to list check mikoneh age bashe
+//true bar migardoneh
+bool is_operatour(String txt) {
+  var lis = ['ac', 'ce', '%', '/', '*', '-', '+', '='];
+  for (var li in lis) {
+    if (li == txt) {
+      return true;
+    }
+  }
+  return false;
+}
 Widget getbody(String t1, String t2, String t3, String t4) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.amber,
+          backgroundColor: get_body_but('$t1'),
 
             shape: CircleBorder(side: BorderSide(width: 2,color: Colors.white))),
         onPressed: () {},
@@ -23,7 +42,7 @@ Widget getbody(String t1, String t2, String t3, String t4) {
       TextButton(
 
         style: TextButton.styleFrom(
-          backgroundColor: Colors.amber,
+            backgroundColor: get_body_but('$t2'),
             shape: CircleBorder(side: BorderSide(width: 2,color: Colors.white))),
         onPressed: () {},
         child: Padding(
@@ -38,7 +57,7 @@ Widget getbody(String t1, String t2, String t3, String t4) {
       TextButton(
         style: TextButton.styleFrom(
 
-          backgroundColor: Colors.amber,
+          backgroundColor: get_body_but('$t3'),
           shape: CircleBorder(
             side: BorderSide(
               width: 2,
@@ -60,7 +79,7 @@ Widget getbody(String t1, String t2, String t3, String t4) {
       ),
       TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.amber,
+          backgroundColor: get_body_but('$t4'),
           shape: CircleBorder(
             side: BorderSide(width: 2,color: Colors.white),
           ),
