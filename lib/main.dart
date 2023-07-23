@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(const _app_start());
@@ -14,11 +15,19 @@ class _app_start extends StatefulWidget {
 class _app_startState extends State<_app_start> {
   var input = '';
 
+  // Amaliyat Riyazi
+  //https://pub.dev/packages/math_expressions/install
+  //ye value vase mohasebeh
+  var result_out = '';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.blue,
           title: Text(
             'calculator',
           ),
@@ -30,23 +39,41 @@ class _app_startState extends State<_app_start> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          '$input',
-                          textAlign: TextAlign.end,
-                          textDirection: TextDirection.ltr,
-                          style: TextStyle(
-                            fontSize: 60,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Text(
+                            '$input',
+                            textAlign: TextAlign.end,
+                            textDirection: TextDirection.ltr,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Text(
+                            '$result_out',
+                            textAlign: TextAlign.end,
+                            textDirection: TextDirection.ltr,
+                            style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   color: Colors.amber,
                 ),
@@ -75,110 +102,132 @@ class _app_startState extends State<_app_start> {
   }
 
   Widget getbody(String t1, String t2, String t3, String t4) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TextButton(
-          style: TextButton.styleFrom(
-              backgroundColor: get_body_but('$t1'),
+    return SingleChildScrollView(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: get_body_but('$t1'),
+                shape: CircleBorder(
+                    side: BorderSide(width: 2, color: Colors.white))),
+            onPressed: () {
+              if (t1 == 'ac') {
+                setState(() {
+                  input = '';
+                  result_out = '';
+                });
+              } else
+                _getinput('$t1');
+            },
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                textAlign: TextAlign.center,
+                '$t1',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: get_text_color('$t1'),
+                ),
+              ),
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: get_body_but('$t2'),
+                shape: CircleBorder(
+                    side: BorderSide(width: 2, color: Colors.white))),
+            onPressed: () {
+              if (is_operatour(t2) == false) {
+                _getinput('$t2');
+              } else if (t2 == 'ce') {
+                //method substring anasor reshte ro be dast miyareh
+                //to in khat code ma az 0 romin andis ta tool kole - 1 ro dakhel d mirizim
+                var d = input.substring(0, input.length - 1);
+                setState(() {
+                  input = d;
+                });
+              } else if (input == '') {
+                setState(() {
+                  input = '';
+                });
+              }
+            },
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                textAlign: TextAlign.center,
+                '$t2',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: get_text_color('$t2'),
+                ),
+              ),
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: get_body_but('$t3'),
               shape: CircleBorder(
-                  side: BorderSide(width: 2, color: Colors.white))),
-          onPressed: () {
-            _getinput('$t1');
-          },
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              textAlign: TextAlign.center,
-              '$t1',
-              style: TextStyle(
-                fontSize: 20,
-                color: get_text_color('$t1'),
+                side: BorderSide(width: 2, color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              _getinput('$t3');
+            },
+            child: Padding(
+              padding: EdgeInsets.all(
+                5,
+              ),
+              child: Text(
+                textAlign: TextAlign.center,
+                '$t3',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: get_text_color('$t3'),
+                ),
               ),
             ),
           ),
-        ),
-        TextButton(
-          style: TextButton.styleFrom(
-              backgroundColor: get_body_but('$t2'),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: get_body_but('$t4'),
               shape: CircleBorder(
-                  side: BorderSide(width: 2, color: Colors.white))),
-          onPressed: () {
-            if (is_operatour(t2) == false) {
-              _getinput('$t2');
-            } else if (t2 == 'ce') {
-              //method substring anasor reshte ro be dast miyareh
-              //to in khat code ma az 0 romin andis ta tool kole - 1 ro dakhel d mirizim
-              var d = input.substring(0, input.length - 1);
-              setState(() {
-                input = d;
-              });
-            } else if (input == '') {
-              setState(() {
-                input = '';
-              });
-            }
-          },
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              textAlign: TextAlign.center,
-              '$t2',
-              style: TextStyle(
-                fontSize: 20,
-                color: get_text_color('$t2'),
+                side: BorderSide(width: 2, color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              if (t4 == '=') {
+                //Parser ye class tabdil konandas
+                Parser p = Parser();
+                //Expression in amaliyat ro mohasebe mikoneh
+                //1+1 => 2
+                Expression e = p.parse(input);
+                //ye context model ham bayad besh bedim
+                ContextModel m = ContextModel();
+                //hala mikham mohasebeh koni
+                //EvaluationType.REAL adad haghiqi
+                double d = e.evaluate(EvaluationType.REAL, m);
+                setState(() {
+                  result_out = d.toString();
+                });
+              } else
+                _getinput('$t4');
+            },
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                textAlign: TextAlign.center,
+                '$t4',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: get_text_color('$t4'),
+                ),
               ),
             ),
           ),
-        ),
-        TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: get_body_but('$t3'),
-            shape: CircleBorder(
-              side: BorderSide(width: 2, color: Colors.white),
-            ),
-          ),
-          onPressed: () {
-
-            _getinput('$t3');
-          },
-          child: Padding(
-            padding: EdgeInsets.all(
-              5,
-            ),
-            child: Text(
-              textAlign: TextAlign.center,
-              '$t3',
-              style: TextStyle(
-                fontSize: 20,
-                color: get_text_color('$t3'),
-              ),
-            ),
-          ),
-        ),
-        TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: get_body_but('$t4'),
-            shape: CircleBorder(
-              side: BorderSide(width: 2, color: Colors.white),
-            ),
-          ),
-          onPressed: () {
-            _getinput('$t4');
-          },
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              textAlign: TextAlign.center,
-              '$t4',
-              style: TextStyle(
-                fontSize: 20,
-                color: get_text_color('$t4'),
-              ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
