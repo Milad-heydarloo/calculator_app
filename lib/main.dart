@@ -41,6 +41,7 @@ class _app_startState extends State<_app_start> {
                 child: Container(
                   child: SingleChildScrollView(
                     child: Column(
+
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
